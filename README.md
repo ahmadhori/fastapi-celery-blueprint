@@ -8,3 +8,5 @@ navigate to the project directory
 poetry install
 docker compose will create hte database for you
 alembic upgrade head
+
+.flake8 is used for flake8 linting

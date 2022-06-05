@@ -1,1 +1,2 @@
-extension-pkg-whitelist = ["pydantic"]
+[MASTER]
+extension-pkg-whitelist=["pydantic"]
