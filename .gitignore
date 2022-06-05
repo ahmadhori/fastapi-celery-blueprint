@@ -5,7 +5,7 @@ htmlcov
 
 # virtualenv
 .venv/
-poetry.lock
+
 
 
 # IDE
