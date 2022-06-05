@@ -1,6 +1,5 @@
 ## Local Development:
 
-
 1. install pyenv
 
 2. install python 3.10 using pyenv
@@ -16,4 +15,9 @@
 docker compose will create hte database for you
 alembic upgrade head
 
-.flake8 is used for flake8 linting
+## Linting and type checking
+
+- flake8 is used as first linter and its configuration is stored in the file .flake8
+- pylint is used as second linter and its configuration is stored in the file .pylintrc
+- autopep8 is enabled for auto formatting and its rules is in the file .vscode/settings.json
+- mypy is enabled for type checking and the file mypy.ini contains the type checking configurations
