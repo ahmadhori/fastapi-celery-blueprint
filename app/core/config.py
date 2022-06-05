@@ -3,11 +3,37 @@
 import secrets
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import (AnyHttpUrl, BaseSettings, EmailStr, HttpUrl, PostgresDsn,
-                      validator)
+from pydantic import (AnyHttpUrl, AnyUrl, BaseSettings, EmailStr, HttpUrl,
+                      PostgresDsn, validator)
+
 
 class Settings(BaseSettings):
+    # Reviewed:
     API_V1_STR: str = "/api/v1"
+    POSTGRES_SERVER: str = "localhost"
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+    POSTGRES_PORT: str = "5432"
+    SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
+
+    @validator("SQLALCHEMY_DATABASE_URI", pre=True)
+    def assemble_db_connection(
+            cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+        if isinstance(v, str):
+            return v
+        return PostgresDsn.build(
+            scheme="postgresql",
+            user=values.get("POSTGRES_USER"),
+            password=values.get("POSTGRES_PASSWORD"),
+            host=values.get("POSTGRES_SERVER"),
+            port=values.get("POSTGRES_PORT"),
+            path=f"/{values.get('POSTGRES_DB') or ''}",
+        )
+
+    CELERY_BROKER_URL: AnyUrl
+    CELERY_RESULT_BACKEND: AnyUrl
+    # Unreviewed:
     SECRET_KEY: str = secrets.token_urlsafe(32)
     # 60 minutes * 24 hours * 8 days = 8 days
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
@@ -35,27 +61,6 @@ class Settings(BaseSettings):
         if len(v) == 0:
             return None
         return v
-
-    POSTGRES_SERVER: str = "localhost"
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    POSTGRES_DB: str
-    POSTGRES_PORT: str = "5432"
-    SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
-
-    @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connection(
-            cls, v: Optional[str], values: Dict[str, Any]) -> Any:
-        if isinstance(v, str):
-            return v
-        return PostgresDsn.build(
-            scheme="postgresql",
-            user=values.get("POSTGRES_USER"),
-            password=values.get("POSTGRES_PASSWORD"),
-            host=values.get("POSTGRES_SERVER"),
-            port=values.get("POSTGRES_PORT"),
-            path=f"/{values.get('POSTGRES_DB') or ''}",
-        )
 
     SMTP_TLS: bool = True
     SMTP_PORT: Optional[int] = None
