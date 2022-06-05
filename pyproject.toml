@@ -26,7 +26,8 @@ python-jose = {extras = ["cryptography"], version = "^3.1.0"}
 python-dotenv = "^0.20.0"
 mypy = "^0.960"
 sqlalchemy-stubs = "^0.4"
-celery = {extras = ["sqlalchemy"], version = "^5.2.7"}
+celery = {extras = ["redis"], version = "^5.2.7"}
+flower = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^2.8.1"
