@@ -15,8 +15,5 @@
         "--aggressive"
     ],
     "python.linting.mypyEnabled": true,
-    "python.linting.flake8Enabled": true,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": true,
-    }
+    "python.linting.flake8Enabled": true
 }

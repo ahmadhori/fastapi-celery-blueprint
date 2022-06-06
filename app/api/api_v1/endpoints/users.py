@@ -1,17 +1,11 @@
-from typing import Any
-from typing import List
+from typing import Any, List
 
-from fastapi import APIRouter
-from fastapi import Body
-from fastapi import Depends
-from fastapi import HTTPException
+from fastapi import APIRouter, Body, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from sqlalchemy.orm import Session
 
-from app import crud
-from app import models
-from app import schemas
+from app import crud, models, schemas
 from app.api import deps
 from app.core.config import settings
 from app.utils import send_new_account_email
