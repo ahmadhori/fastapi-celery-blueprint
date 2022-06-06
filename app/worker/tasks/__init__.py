@@ -1,1 +1,1 @@
-from .task1 import test_celery
+from .task1 import test_task
