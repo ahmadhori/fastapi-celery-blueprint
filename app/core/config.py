@@ -1,5 +1,3 @@
-
-
 import secrets
 from typing import Any
 from typing import Dict
@@ -27,8 +25,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connection(
-            cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+    def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
         if isinstance(v, str):
             return v
         return PostgresDsn.build(
@@ -45,7 +42,8 @@ class Settings(BaseSettings):
 
     @validator("CELERY_RESULT_BACKEND", pre=True)
     def assemble_celery_result_backend(
-            cls, value: Optional[str], values: Dict[str, Any]) -> Any:
+        cls, value: Optional[str], values: Dict[str, Any]
+    ) -> Any:
         if isinstance(value, str) and value:
             return value
         return "db+" + str(values.get("SQLALCHEMY_DATABASE_URI"))
@@ -62,8 +60,7 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
-    def assemble_cors_origins(
-            cls, v: Union[str, List[str]]) -> Union[List[str], str]:
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
         if isinstance(v, str) and not v.startswith("["):
             return [i.strip() for i in v.split(",")]
         elif isinstance(v, (list, str)):
@@ -88,8 +85,7 @@ class Settings(BaseSettings):
     EMAILS_FROM_NAME: Optional[str] = None
 
     @validator("EMAILS_FROM_NAME")
-    def get_project_name(
-            cls, v: Optional[str], values: Dict[str, Any]) -> str:
+    def get_project_name(cls, v: Optional[str], values: Dict[str, Any]) -> str:
         if not v:
             return str(values["PROJECT_NAME"])
         return v
@@ -99,8 +95,7 @@ class Settings(BaseSettings):
     EMAILS_ENABLED: bool = False
 
     @validator("EMAILS_ENABLED", pre=True)
-    def get_emails_enabled(
-            cls, v: bool, values: Dict[str, Any]) -> bool:
+    def get_emails_enabled(cls, v: bool, values: Dict[str, Any]) -> bool:
         return bool(
             values.get("SMTP_HOST")
             and values.get("SMTP_PORT")
