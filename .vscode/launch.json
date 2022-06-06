@@ -34,6 +34,20 @@
             ],
             "stopOnEntry": true,
             "justMyCode": false
+        },
+        {
+            "name": "Python: Celery",
+            "type": "python",
+            "request": "launch",
+            "module": "celery",
+            "console": "integratedTerminal",
+            "args": [
+                "--app=app.core.celery_app",
+                "worker",
+                "--loglevel=INFO",
+                "--concurrency=1"
+            ],
+            "justMyCode": true
         }
     ]
 }
