@@ -1,4 +1,4 @@
-from .async_task import AsyncTask
+from .celery import AsyncTask, CeleryTasks
 from .item import Item, ItemCreate, ItemInDB, ItemUpdate
 from .msg import Msg
 from .token import Token, TokenPayload

@@ -18,7 +18,8 @@
             "request": "launch",
             "module": "uvicorn",
             "args": [
-                "app.main:app"
+                "app.main:app",
+                "--reload"
             ],
             "jinja": true,
             "justMyCode": true
@@ -40,7 +41,7 @@
             "type": "python",
             "request": "launch",
             "module": "celery",
-            "console": "integratedTerminal",
+            "console": "externalTerminal",
             "args": [
                 "--app=app.worker.celery_app",
                 "worker",
