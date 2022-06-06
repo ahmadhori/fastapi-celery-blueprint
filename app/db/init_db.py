@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app import crud, schemas
+from app import crud
+from app import schemas
 from app.core.config import settings
 from app.db import base  # noqa: F401
 

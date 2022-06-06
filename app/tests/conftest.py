@@ -1,4 +1,5 @@
-from typing import Dict, Generator
+from typing import Dict
+from typing import Generator
 
 import pytest
 from fastapi.testclient import TestClient
