@@ -32,7 +32,15 @@ class Settings(BaseSettings):
         )
 
     CELERY_BROKER_URL: AnyUrl
-    CELERY_RESULT_BACKEND: AnyUrl
+    CELERY_RESULT_BACKEND: Optional[AnyUrl]
+
+    @validator("CELERY_RESULT_BACKEND", pre=True)
+    def assemble_celery_result_backend(
+            cls, value: Optional[str], values: Dict[str, Any]) -> Any:
+        if isinstance(value, str) and value:
+            return value
+        return "db+" + str(values.get("SQLALCHEMY_DATABASE_URI"))
+
     # Unreviewed:
     SECRET_KEY: str = secrets.token_urlsafe(32)
     # 60 minutes * 24 hours * 8 days = 8 days
