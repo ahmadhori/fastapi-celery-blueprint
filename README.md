@@ -42,5 +42,14 @@
 
 * `flake8` is used as first linter and its configuration is stored in the file `.flake8`
 * `pylint` is used as second linter and its configuration is stored in the file `.pylintrc`
-* `autopep8` is enabled for auto formatting and its rules is in the file `.vscode/settings.json`
 * `mypy` is enabled for type checking and the file `mypy.ini` contains the type checking configurations
+
+## Formatting and sorting imports
+
+* `autopep8` is enabled for auto formatting and its rules is in the file `.vscode/settings.json` - if you are using vscode then these rules will be applied automatically when formatting.
+* `isort` is used to sort and clean the imports using the script `scripts/format-imports.sh` and you can run it  as follows:
+
+  ```bash
+  scripts/format-imports.sh
+  ```
+  
