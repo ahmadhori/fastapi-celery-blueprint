@@ -42,7 +42,7 @@
             "module": "celery",
             "console": "integratedTerminal",
             "args": [
-                "--app=app.core.celery_app",
+                "--app=app.worker.celery_app",
                 "worker",
                 "--loglevel=INFO",
                 "--concurrency=1"
