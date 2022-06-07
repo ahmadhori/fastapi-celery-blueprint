@@ -9,11 +9,7 @@ from app.worker.utils import update_task_progress
 def test_task(self, job_to_do: str) -> dict:
     for i in range(10):
         message = f"I am still working on {job_to_do}, in loop number {i}"
-        update_task_progress(
-            self,
-            current=i,
-            total=10,
-            message=message)
+        update_task_progress(self, current=i, total=10, message=message)
 
         time.sleep(5)
         print(message)
