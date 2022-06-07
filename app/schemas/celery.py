@@ -6,7 +6,8 @@ from pydantic import BaseModel
 class TaskResult(BaseModel):
     current: int | None
     total: int | None
-    status: str
+    logs: List[str] | None
+    final_status: str | None
 
 
 class AsyncTask(BaseModel):
