@@ -20,7 +20,7 @@ def post_test_task(task_input: str) -> Any:
 @router.get("/", response_model=schemas.CeleryTasks, status_code=200)
 def get_tasks() -> Any:
     """
-    Get Active And Schedule Celery Tasks
+    Get Active And Schedule Celery Tasks (Finished tasks are not included).
     """
     i = celery_app.control.inspect()
     try:
@@ -43,3 +43,14 @@ def get_tasks() -> Any:
         "running": active_tasks,
         "reserved": reserved_tasks,
     }
+
+
+@router.get("/{task_id}", response_model=schemas.AsyncTask, status_code=200)
+def get_task_per_id(task_id: str) -> Any:
+    """
+    Get Celery Task By Task ID.\n
+    Result backend will be queried to get the results, and if
+    the task is not found it will return a task in PENDING state.
+    """
+    task = celery_app.AsyncResult(task_id)
+    return task
