@@ -4,10 +4,10 @@ from pydantic import BaseModel
 
 
 class TaskResult(BaseModel):
-    current: int | None
-    total: int | None
-    logs: List[str] | None
-    final_status: str | None
+    current: Optional[int]
+    total: Optional[int]
+    logs: Optional[List[str]]
+    final_status: Optional[str]
 
 
 class AsyncTask(BaseModel):
@@ -15,7 +15,7 @@ class AsyncTask(BaseModel):
     name: Optional[str]
     args: Optional[List[Any]]
     state: Optional[str]
-    result: TaskResult | None
+    result: Optional[TaskResult]
 
     class Config:
         orm_mode = True
