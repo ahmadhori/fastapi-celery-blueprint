@@ -5,7 +5,7 @@ description = ""
 authors = ["Admin <admin@example.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 uvicorn = "^0.17.6"
 fastapi = "^0.78.0"
 python-multipart = "^0.0.5"
@@ -27,6 +27,7 @@ python-dotenv = "^0.20.0"
 sqlalchemy-stubs = "^0.4"
 celery = {extras = ["redis"], version = "^5.2.7"}
 flower = "^1.0.0"
+sqlacodegen = "^2.3.0"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^2.8.1"

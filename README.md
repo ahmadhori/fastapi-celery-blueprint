@@ -4,16 +4,16 @@
 
 * Install pyenv.
 
-* Install python 3.10 using pyenv:
+* Install python 3.9 using pyenv:
 
   ```bash
-  pyenv install 3.10.3
+  pyenv install 3.9
   ```
 
-* Set python 3.10 as default
+* Set python 3.9 as default
 
   ```bash
-  pyenv global 3.10.3
+  pyenv global 3.9
   ```
 
 * Install poetry
