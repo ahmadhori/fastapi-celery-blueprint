@@ -19,33 +19,48 @@ services:
     ports:
       - "6379:6379"
 
-  webserver:
+  #  webserver:
+  #    build: .
+  #    ports:
+  #      - "80:80"
+  #    command: uvicorn app.main:app --host 0.0.0.0 --port 80
+  #    depends_on:
+  #      - db
+  #      - redis
+  #    volumes:
+  #      - .:/app
+  #    environment:
+  #      - CELERY_BROKER_URL=redis://redis:6379/0
+  #      - POSTGRES_SERVER=db
+  #      - POSTGRES_PORT=5432
+
+  #  worker:
+  #    build: .
+  #    command: celery --app=app.worker.celery_app worker --loglevel=INFO --concurrency=1
+  #    depends_on:
+  #      - db
+  #      - redis
+  #    volumes:
+  #      - .:/app
+  #    environment:
+  #      - CELERY_BROKER_URL=redis://redis:6379/0
+  #      - POSTGRES_SERVER=db
+  #      - POSTGRES_PORT=5432
+
+  # This service will run both the worker and the webserver as processes in the same container
+  webserver_worker:
     build: .
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - POSTGRES_SERVER=db
+      - POSTGRES_PORT=5432
     ports:
       - "80:80"
-    command: uvicorn app.main:app --host 0.0.0.0 --port 80
-    depends_on:
-      - db
-      - redis
-    volumes:
-      - .:/app
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - POSTGRES_SERVER=db
-      - POSTGRES_PORT=5432
-
-  worker:
-    build: .
-    command: celery --app=app.worker.celery_app worker --loglevel=INFO --concurrency=1
-    depends_on:
-      - db
-      - redis
-    volumes:
-      - .:/app
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - POSTGRES_SERVER=db
-      - POSTGRES_PORT=5432
 
 volumes:
   app-db-data:
