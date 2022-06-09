@@ -1,6 +1,14 @@
 # FastAPI/Celery Blueprint
-This project is a blueprint for FastAPI and Celery.
-it is a production ready project and you have the op
+
+This project is a blueprint for the a python webserver along side a celery worker to run background jobs, and it contains the follows:
+
+- FastAPI as a webserver running using uvicorn
+- Celery as a background job worker and scheduler.
+- Redis is used as a borker and message queue.
+- Postgres database is used as a result backend and it will store the results and the logs of the jobs.
+
+Regarding the docker image it uses supervisor to run the celery worker and uvicorn webserver in one container image for the sake of running a simple application, for a more complicated setup you can still use the same docker image but you have to override the docker image entrypoint with your own command to run the webserver and celery worker each in a different container.
+These commands are already included in the docker compose file and it also contains an example of how to run the webserver and celery worker in different containers (2 different services webserver + worker but they are already commented out).
 
 ## Requirements
 
@@ -71,7 +79,7 @@ docker compose logs
 To check the logs of a specific service, add the name of the service, e.g.:
 
 ```bash
-docker compose logs webserver_worker
+docker compose logs -f webserver_worker
 ```
 
 ---
