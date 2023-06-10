@@ -27,13 +27,16 @@ These commands are already included in the docker compose file and it also conta
   pyenv install 3.9
   ```
 
+* Install poetry
+
 * Set python 3.9 as default
 
   ```bash
-  pyenv global 3.9
+  pyenv global 3.9.16
+  pyenv shell 3.9.16 # alternative 
+  poetry env use 3.9.16 # to enforce pyenv to use the same python version
   ```
 
-* Install poetry
 
 * Navigate to the project directory and install dependencies using poetry:
 
